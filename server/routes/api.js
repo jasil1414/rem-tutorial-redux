@@ -4,6 +4,7 @@ import User from '../model/users';
 import isEmpty  from 'lodash/isEmpty';
 import jwt from 'jsonwebtoken';
 import config from '../config';
+import authenticate from '../middlewares/authenticate';
 
 let router = express.Router();
 
@@ -94,5 +95,10 @@ router.post('/users/auth', (req,res) =>{
       res.status(401).json({ errors:{ form:'Invalid credentials'}})
     }
   });
+});
+
+router.post('/events', authenticate, (req,res) =>{
+
+  res.status(201).json({success:true});
 });
 export default router;
